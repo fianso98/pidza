@@ -1,28 +1,33 @@
 package fianso.io.pidza.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-import fianso.io.pidza.services.PlayerService;
-import fianso.io.pidza.models.Player;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
-
-@RestController
 public class PlayerController {
-
+/*
     @Autowired
     private PlayerService playerService;
 
 
-    @GetMapping(value="player")
+    @GetMapping(value="players")
     public List<Player> getPlayers() {
         return playerService.getAllThePlayers();
     }
-    
+    @GetMapping(value = "players/{id}")
+    public Player getPlayerById(@PathVariable int id){
+        return playerService.getPlayerById(id);
+    }
+    @PostMapping(value = "players/add")
+    public void addPlayer(@RequestBody Player player){
+        playerService.addPlayer(player);
+    }
+    @PutMapping(value = "players/update")
+    public void updatePlayer(@RequestBody Player player){
+        playerService.updatePlayer(player);
+    }
+    @DeleteMapping(value = "players/delete/{id}")
+    public void deletePlayerById(@PathVariable int id){
+        playerService.deletePlayerById(id);
+    }
+    */
 
 }
