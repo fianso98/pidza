@@ -51,4 +51,7 @@ public class CommandeService {
     public List<Commande> getCommandeByResponsable(int id){
         return commandeRepository.findByResponsable(id);
     }
+    public List<Commande> getCommandeReadyByResponsable(int id){
+        return commandeRepository.findReadyByResponsable(id);
+    }
 }

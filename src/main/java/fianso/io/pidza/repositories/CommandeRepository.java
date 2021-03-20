@@ -11,4 +11,8 @@ public interface CommandeRepository extends CrudRepository<Commande , Integer> {
     @Query(value = "SELECT * FROM commande c, magasin m  WHERE c.magasin_id= m.magasin_id and m.responsable_id = ?1", 
     nativeQuery = true)
     List<Commande> findByResponsable(int responsable);
+
+    @Query(value = "SELECT * FROM commande c, magasin m  WHERE c.magasin_id= m.magasin_id and m.responsable_id = ?1 and c.commande_etat='pret'", 
+    nativeQuery = true)
+    List<Commande> findReadyByResponsable(int responsable);
 }

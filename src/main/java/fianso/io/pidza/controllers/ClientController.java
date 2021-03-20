@@ -1,6 +1,9 @@
 package fianso.io.pidza.controllers;
 
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -9,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +30,7 @@ import fianso.io.pidza.models.CommandeClientKey;
 import fianso.io.pidza.models.CommandePizza;
 import fianso.io.pidza.models.CommandePizzaKey;
 import fianso.io.pidza.models.Ingrediant;
+import fianso.io.pidza.models.LoginForm;
 import fianso.io.pidza.models.Magasin;
 import fianso.io.pidza.models.Pizza;
 import fianso.io.pidza.repositories.MagasinRepository;
@@ -72,10 +77,14 @@ public class ClientController {
 
     @Autowired
     private BoissonService boissonService;
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(value = "/api/client/consult")
     public List<Magasin> consultPizzaDisponible(){
         return magasinService.getAllMagasins();
     }
+
+
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(value = "/api/client/consult/{idClient}")
     public List<Magasin> magasinsPlusProche(@PathVariable int idClient){
         Optional<Client> client = clientService.getClientById(idClient);
@@ -83,6 +92,31 @@ public class ClientController {
         String clientAdress = clientModel.getClient_adress();
         return magasinService.getMagasinByAdress(clientAdress);
     }
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping(value = "/api/client/login")
+    public ObjectNode loginClient(@RequestBody LoginForm loginForm){
+        String username = loginForm.getUsername();
+        String password = loginForm.getPassword();
+        Optional<Client> client = clientService.getClientByUsername(username);
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode objectNode = mapper.createObjectNode();
+        if(client==null){
+            
+            objectNode.put("message", "please register before continuing");
+            return objectNode;
+        }else {
+            String ClientPasswordInDatabase = client.get().getClient_password();
+            if (password.equals(ClientPasswordInDatabase)){ 
+                objectNode.put("id", client.get().getClient_id());
+                objectNode.put("message", "login with success");
+                return objectNode;
+            }else{
+                objectNode.put("message", "invalid password please try again");
+                return objectNode;
+            }
+        }
+    }
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(value = "/api/client/signin")
     public void clientNouveauCompte(@RequestBody Client client){
         clientService.signInClient(client);
@@ -91,6 +125,7 @@ public class ClientController {
     public void clientUpdateCompte(@RequestBody Client client){
         clientService.updateClient(client);
     }
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(value = "/api/client/createcommande")
     public void clientCreateCommande(@RequestBody ObjectNode json){
 
@@ -140,7 +175,7 @@ public class ClientController {
                 commandeClient.setId(id);    
                 commandeClient.setCommandes_client(commande);    
                 commandeClient.setClients(client);
-                commandeClient.setAdress_livraison(adressClientJson.toString()); 
+                commandeClient.setAdress_livraison(adressClientJson.asText()); 
                 //insert into database  
                 commandeClientService.addCommandeClient(commandeClient);
             }

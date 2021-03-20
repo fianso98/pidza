@@ -161,8 +161,10 @@ CREATE TABLE IF NOT EXISTS commande_agent(
 INSERT INTO responsable values ( 1 , "afir" , "sofiane" , "fianso" , "abcd1234" , "sofiane@hotmail.com");
 INSERT INTO responsable values ( 2 , "boumechta" , "mohamed" , "user" , "abcd1234" , "mohamed@hotmail.com");
 INSERT INTO magasin values ( 1 , 'pizza hot' , 'alger' , 'ain naadja 1045 cite' , 1);
+INSERT INTO magasin values ( 2 , 'burgger for you' , 'blida' , 'beni mered' , 2);
 
 /* pizza part of commande*/
+/*
 INSERT INTO  pizza values( 1 , "mega" , 2000.00);
 INSERT INTO  pizza values( 2 , "medium" ,  1500.00);
 INSERT INTO  pizza values( 3 , "simple" ,  800.00);
@@ -174,8 +176,9 @@ INSERT INTO ingrediant values ( 3 , "moutard" , 55.00);
 INSERT INTO  pizza_ingrediant values ( 1 , 1);
 INSERT INTO  pizza_ingrediant values ( 1 , 2);
 INSERT INTO  pizza_ingrediant values ( 2 , 3);
-
+*/
 /* commande part*/
+/*
 INSERT INTO commande values(1,"pret", 5000.00 , 1);
 INSERT INTO commande values(2,"pret", 5000.00 , 1);
 INSERT INTO commande values(3,"pret", 5000.00 , 1);
@@ -183,55 +186,68 @@ INSERT INTO commande values(3,"pret", 5000.00 , 1);
 INSERT INTO commande_pizza values(1,1,2);
 INSERT INTO commande_pizza values(1,2,1);
 INSERT INTO commande_pizza values(1,3,3);
-
+*/
 /* boisson part of commande*/
-
+/*
 INSERT INTO boisson values( 1 , "coca cola",  85.00);
 INSERT INTO boisson values( 2 , "pepsi", 70.00);
 INSERT INTO boisson values( 3 , "fanta", 70.00);
 
 INSERT INTO commande_boisson values( 1 , 1 , 2);
 INSERT INTO commande_boisson values( 1 , 3 , 1);
-
+*/
 /* pizza part of magasin */
 INSERT INTO  pizza_list values( 1 , "mega","photoPizza1.png", 2000.00);
 INSERT INTO  pizza_list values( 2 , "medium","photoPizza2.png", 1500.00);
 INSERT INTO  pizza_list values( 3 , "simple","photoPizza3.png", 800.00);
-
+/* magasin 1*/
 INSERT INTO  magasin_pizza_list values( 1 , 1);
 INSERT INTO  magasin_pizza_list values( 1 , 2);
 INSERT INTO  magasin_pizza_list values( 1 , 3);
-
+/*magasin 2 */
+INSERT INTO  magasin_pizza_list values( 2 , 2);
+INSERT INTO  magasin_pizza_list values( 2 , 3);
 /* boisson part of magasin */
 INSERT INTO boisson_list values( 1 , "coca cola", "photoBoisson1.png" , 85.00);
-INSERT INTO boisson_list values( 2 , "pepsi",  "photoBoisson1.png" ,70.00);
-INSERT INTO boisson_list values( 3 , "fanta", "photoBoisson1.png" , 70.00);
-
+INSERT INTO boisson_list values( 2 , "pepsi",  "photoBoisson2.png" ,70.00);
+INSERT INTO boisson_list values( 3 , "fanta", "photoBoisson3.png" , 70.00);
+INSERT INTO boisson_list values( 4 , "sprit", "photoBoisson4.png" , 75.00);
+/* magasin 1*/
 INSERT INTO  magasin_boisson_list values( 1 , 1);
 INSERT INTO  magasin_boisson_list values( 1 , 2);
 INSERT INTO  magasin_boisson_list values( 1 , 3);
-
+/* magasin 2*/
+INSERT INTO  magasin_boisson_list values( 2 , 1);
+INSERT INTO  magasin_boisson_list values( 2 , 3);
+INSERT INTO  magasin_boisson_list values( 2 , 4);
 /* ingerediant part of magasin */
 
 
 INSERT INTO ingrediant_list values ( 1 , "fromage" , 50.00);
 INSERT INTO ingrediant_list values ( 2 , "frite" , 70.00);
 INSERT INTO ingrediant_list values ( 3 , "moutard" , 55.00);
+INSERT INTO ingrediant_list values ( 4 , "ketchup" , 85.00);
 
-
+/* magasin 1*/
 INSERT INTO  magasin_ingrediant_list values( 1 , 1);
 INSERT INTO  magasin_ingrediant_list values( 1 , 2);
 INSERT INTO  magasin_ingrediant_list values( 1 , 3);
+/* magasin 2*/
+INSERT INTO  magasin_ingrediant_list values( 2 , 1);
+INSERT INTO  magasin_ingrediant_list values( 2 , 2);
+INSERT INTO  magasin_ingrediant_list values( 2 , 3);
+INSERT INTO  magasin_ingrediant_list values( 2 , 4);
+
 
 /* agent part */
 INSERT INTO agent values( 1 , "mohand" , "toufik" , "toufik@hotmail.com" ,"abcd1234" , "toufik123" , "ain taya" , "055401524" );
 INSERT INTO agent values( 2 , "samir" , "mohamed" , "mohamed@hotmail.com" ,"abcd1234" , "mohamed123" , "ain taya" , "055401524" );
 INSERT INTO agent values( 3 , "raja" , "salima" , "salima@hotmail.com" ,"abcd1234" , "saima123" , "ain taya" , "055401524" );
-
+/*
 INSERT INTO commande_agent values( 1 , 1 , "en cours" , null);
 INSERT INTO commande_agent values( 2 , 2 , "pas livrer" , "j'ai pas trouver le client");
 INSERT INTO commande_agent values( 3 , 1 , "en cours" , null);
-
+*/
 
 /* client part */
 
@@ -240,9 +256,10 @@ INSERT INTO client values( 2 , "menai" , "yassin" , "yassin@hotmail.com" ,"abcd1
 INSERT INTO client values( 3 , "miloudi" , "merwan" , "merwan@hotmail.com" ,"abcd1234" , "merwan" , "blida" , "055401524" ,"tokenXYZ");
 INSERT INTO client values( 4 , "hamid" , "djamel" , "djamel@hotmail.com" ,"abcd1234" , "djemal" , "alger" , "055401524" ,"tokenXYZ");
 
+/*
 INSERT INTO commande_client values( 1 , 1 , "alger" );
 INSERT INTO commande_client values( 2 , 2 , null );
 INSERT INTO commande_client values( 3 , 1 , "oran" );
-
+*/
 
 

@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,7 @@ import fianso.io.pidza.models.CommandeAgent;
 import fianso.io.pidza.models.CommandeBoisson;
 import fianso.io.pidza.models.CommandeClient;
 import fianso.io.pidza.models.CommandePizza;
+import fianso.io.pidza.models.LoginForm;
 import fianso.io.pidza.models.Magasin;
 import fianso.io.pidza.models.Responsable;
 import fianso.io.pidza.services.AgentService;
@@ -62,13 +64,43 @@ public class ResponsableController {
     public List<Responsable> getAllResponsables() {
         return responsableService.getAllResponsables();
     }
-
-    @GetMapping(value = "/api/responsable/getcommandes/{idResponsable}")
-    public List<Commande> getCommandes(@PathVariable int idResponsable) {
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping(value = "/api/responsable/getallcommandes/{idResponsable}")
+    public List<Commande> getAllCommandes(@PathVariable int idResponsable) {
 
         return commandeService.getCommandeByResponsable(idResponsable);
     }
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping(value = "/api/responsable/getcommandes/{idResponsable}")
+    public List<Commande> getCommandes(@PathVariable int idResponsable) {
 
+        return commandeService.getCommandeReadyByResponsable(idResponsable);
+    }
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping(value = "/api/responsable/login")
+    public ObjectNode loginClient(@RequestBody LoginForm loginForm){
+        String username = loginForm.getUsername();
+        String password = loginForm.getPassword();
+        Optional<Responsable> responsable = responsableService.getResponsableByUsername(username);
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode objectNode = mapper.createObjectNode();
+        if(responsable==null){
+            
+            objectNode.put("message", "please register before continuing");
+            return objectNode;
+        }else {
+            String responsablePasswordInDatabase = responsable.get().getResponsable_password();
+            if (password.equals(responsablePasswordInDatabase)){ 
+                objectNode.put("id", responsable.get().getResponsable_id());
+                objectNode.put("message", "login with success");
+                return objectNode;
+            }else{
+                objectNode.put("message", "invalid password please try again");
+                return objectNode;
+            }
+        }
+    }
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(value = "/api/responsable/startcommande/{idCommande}")
     public void getMethodName(@RequestBody ObjectNode json,@PathVariable int idCommande ) {
         Optional<Commande> opCom=commandeService.getCommandesById(idCommande);

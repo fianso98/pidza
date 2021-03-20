@@ -1,5 +1,6 @@
 package fianso.io.pidza.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,14 @@ public class ClientService {
          return client;
          return null;
      }
+
+     public Optional<Client> getClientByUsername(String username){
+      Optional<Client> client = clientRepository.findByUsername(username);
+      if(client.isPresent())
+      return client;
+      return null;
+     }
+     
 
      public void signInClient(Client client){
         clientRepository.save(client);
